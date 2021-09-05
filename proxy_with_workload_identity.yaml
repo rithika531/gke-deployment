@@ -41,7 +41,7 @@ spec:
         # Make sure to update on a regular schedule!
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-        "-instances=127.0.01=tcp:5432",
+        "-instances=34.66.225.19=tcp:5432",
         "-credential_file=customer-n-test-service-f0c309072063.json"]  
 
         volumeMounts:
