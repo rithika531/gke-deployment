@@ -40,8 +40,9 @@ spec:
         # It is recommended to use the latest version of the Cloud SQL proxy
         # Make sure to update on a regular schedule!
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
-        command:
-          - "/cloud_sql_proxy"
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+        "-instances=<127.0.01=tcp:5432>",
+        "-credential_file=/secrets/cloudsql/customer-n-test-service-f0c309072063.json"]  
 
           # If connecting from a VPC-native GKE cluster, you can use the
           # following flag to have the proxy connect over private IP
