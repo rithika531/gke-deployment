@@ -13,12 +13,11 @@ spec:
         app: approject
     spec: 
       containers: 
-        - name: hello-app
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app" 
+        - 
           env: 
             - 
               name: DB_USER
-              valueFrom:  
+              valueFrom: 
                 secretKeyRef: 
                   key: username
                   name: cloudsql-db-credentials
@@ -34,19 +33,20 @@ spec:
                 secretKeyRef: 
                   key: database
                   name: postgres
+          image: us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app
           name: approject
         - 
           command: 
             - /cloud_sql_proxy
             - "--dir=/cloudsql"
-            - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432" 
+            - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432"
             - "-credential_file=/secrets/cloudsql/credentials.json"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources: 
-            requests:   
-              cpu: 1 
-              memory: "600MB"
+            requests: 
+              cpu: 200m
+              memory: 32Mi
           securityContext: 
             runAsNonRoot: true
-      serviceAccountName: testapp 
+      serviceAccountName: testapp
