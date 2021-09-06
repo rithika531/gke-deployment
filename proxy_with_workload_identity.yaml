@@ -13,7 +13,8 @@ spec:
         app: approject
     spec: 
       containers: 
-        - 
+        - name: app-dummy-name
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/conn-repo" 
           env: 
             - 
               name: DB_USER
@@ -33,7 +34,6 @@ spec:
                 secretKeyRef: 
                   key: database
                   name: postgres
-          image: us-central1-docker.pkg.dev/customer-n-test-service/conn-repo
           name: approject
         - 
           command: 
@@ -49,4 +49,4 @@ spec:
               memory: 2Gi
           securityContext: 
             runAsNonRoot: true
-      serviceAccountName: test-psql-account
+      serviceAccountName: testproject 
