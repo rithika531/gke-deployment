@@ -1,49 +1,45 @@
-# [START cloud_sql_proxy_k8s_sa]
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: psqldeployment
+  name: app-dummy-name
 spec:
-  selector:
-    matchLabels:
-      app: PSQLConProject
+  replicas: 1
+  revisionHistoryLimit: 1
+  strategy:
+      type: RollingUpdate
   template:
     metadata:
       labels:
-        app: PSQLConProject
+        app: app-dummy-name
+        tier: backend
     spec:
-      serviceAccountName: psqlproject
-      # [END cloud_sql_proxy_k8s_sa]
-      # [START cloud_sql_proxy_k8s_secrets]
+      securityContext:
+        runAsUser: 0
+        runAsNonRoot: false
       containers:
-      - name: PSQLConProject
-        # ... other container configuration
+      - name: app-dummy-name
+        image: gcr.io/cloudsql-docker/gce-proxy:1.17 
+        ports:
+        - containerPort: 80
         env:
+        - name: DB_HOST
+          value: localhost
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: vrithika
+              name: cloudsql-db-credentials
               key: username
-        - name: DB_PASS
+        - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: e5sbcbc!Q|hoky1k
+              name: cloudsql-db-credentials
               key: password
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: postgres
-              key: database
-      # [END cloud_sql_proxy_k8s_secrets]
-      # [START cloud_sql_proxy_k8s_container]
-      - name: cloud-sql-proxy
-        # It is recommended to use the latest version of the Cloud SQL proxy
-        # Make sure to update on a regular schedule!
-        image: gcr.io/cloudsql-docker/gce-proxy:1.17
+      # proxy_container
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-        "-instances=34.66.225.19=tcp:5432",
-        "-credential_file=customer-n-test-service-f0c309072063.json"]  
-
+          "-instances=customer-n-test-service:us-central1:testins=tcp:5432",
+          "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials
             mountPath: /secrets/cloudsql
@@ -56,4 +52,4 @@ spec:
         secret:
           secretName: cloudsql-instance-credentials
       - name: cloudsql
-        emptyDir: 
+        emptyDir:
