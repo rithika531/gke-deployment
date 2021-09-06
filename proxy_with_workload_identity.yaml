@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: psqltest
+  name: test
 spec: 
   selector: 
     matchLabels: 
@@ -13,12 +13,12 @@ spec:
         app: approject
     spec: 
       containers: 
-        - name: connection-app
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/conn-repo/connection-app" 
+        - name: hello-app
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app" 
           env: 
             - 
               name: DB_USER
-              valueFrom: 
+              valueFrom:  
                 secretKeyRef: 
                   key: username
                   name: cloudsql-db-credentials
@@ -39,7 +39,7 @@ spec:
           command: 
             - /cloud_sql_proxy
             - "--dir=/cloudsql"
-            - "-instances=customer-n-test-service:us-central1:testins=tcp:5432"
+            - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432" 
             - "-credential_file=/secrets/cloudsql/credentials.json"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
@@ -49,4 +49,4 @@ spec:
               memory: 2Gi
           securityContext: 
             runAsNonRoot: true
-      serviceAccountName: testproject 
+      serviceAccountName: testapp
