@@ -13,8 +13,8 @@ spec:
         app: approject
     spec: 
       containers: 
-        - name: app-dummy-name
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/conn-repo" 
+        - name: connection-app
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/conn-repo/connection-app" 
           env: 
             - 
               name: DB_USER
