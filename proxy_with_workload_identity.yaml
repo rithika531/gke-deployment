@@ -1,67 +1,52 @@
 --- 
-apiVersion: apps/v1 
+apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: testservice
+  name: test
 spec: 
-  replicas: 1
-  revisionHistoryLimit: 1
-  strategy: 
-    type: RollingUpdate
+  selector: 
+    matchLabels: 
+      app: approject
   template: 
     metadata: 
       labels: 
         app: approject
-        tier: backend
     spec: 
       containers: 
-        - 
+        - name: hello-app
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app" 
           env: 
             - 
-              name: DB_HOST
-              value: localhost
-            - 
               name: DB_USER
-              valueFrom: 
+              valueFrom:  
                 secretKeyRef: 
                   key: username
                   name: cloudsql-db-credentials
             - 
-              name: DB_PASSWORD
+              name: DB_PASS
               valueFrom: 
                 secretKeyRef: 
                   key: password
                   name: cloudsql-db-credentials
-          image: us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app
-          name: approject
-          ports: 
             - 
-              containerPort: 80
+              name: DB_NAME
+              valueFrom: 
+                secretKeyRef: 
+                  key: database
+                  name: postgres
+          name: approject
         - 
           command: 
             - /cloud_sql_proxy
             - "--dir=/cloudsql"
-            - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432"
+            - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432" 
             - "-credential_file=/secrets/cloudsql/credentials.json"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
-          name: cloudsql-proxy
-          volumeMounts: 
-            - 
-              mountPath: /secrets/cloudsql
-              name: cloudsql-instance-credentials
-              readOnly: true
-            - 
-              mountPath: /cloudsql
-              name: cloudsql
-      securityContext: 
-        runAsNonRoot: false
-        runAsUser: 0
-        
-      volumes: 
-        - 
-          name: cloudsql-instance-credentials
-          secret: 
-            secretName: cloudsql-instance-credentials
-        - 
-          emptyDir: ~
-          name: cloudsql
+          name: cloud-sql-proxy
+          resources: 
+            requests: 
+              cpu: "300m" 
+              memory: "96Mi"
+          securityContext: 
+            runAsNonRoot: true
+      serviceAccountName: testapp 
