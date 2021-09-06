@@ -45,8 +45,8 @@ spec:
           name: cloud-sql-proxy
           resources: 
             requests:   
-              cpu: "750m" 
-              memory: "192Mi"
+              cpu: 1 
+              memory: "600MB"
           securityContext: 
             runAsNonRoot: true
       serviceAccountName: testapp 
