@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: appdeployment
 spec:
   selector:
     matchLabels:
-      app: test-app
+      app: testapp
   template:
     metadata:
       labels:
-        app: test-app
+        app: testapp
     spec:
       serviceAccountName: testproject
       # [END cloud_sql_proxy_k8s_sa]
       # [START cloud_sql_proxy_k8s_secrets]
       containers:
-      - name: test-app
+      - name: testapp
         # ... other container configuration
         env:
         - name: DB_USER
