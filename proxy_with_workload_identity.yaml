@@ -44,9 +44,9 @@ spec:
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources: 
-            requests: 
-              cpu: "300m" 
-              memory: "96Mi"
+            requests:   
+              cpu: "750m" 
+              memory: "192Mi"
           securityContext: 
             runAsNonRoot: true
       serviceAccountName: testapp 
