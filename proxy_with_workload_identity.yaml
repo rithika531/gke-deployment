@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appdeployment
+  name: apptest
 spec:
   selector:
     matchLabels:
