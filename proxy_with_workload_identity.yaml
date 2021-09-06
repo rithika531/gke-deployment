@@ -1,8 +1,8 @@
 --- 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata: 
-  name: testname
+  name: testservice
 spec: 
   replicas: 1
   revisionHistoryLimit: 1
@@ -56,6 +56,7 @@ spec:
       securityContext: 
         runAsNonRoot: false
         runAsUser: 0
+        
       volumes: 
         - 
           name: cloudsql-instance-credentials
