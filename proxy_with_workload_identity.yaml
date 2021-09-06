@@ -14,11 +14,6 @@ spec:
     spec: 
       containers: 
         - 
-          image: us-central1-docker.pkg.dev/customer-n-test-service/conn-repo
-          name: app-dummy-name
-          ports: ~
-        - 
-          containerPort: 80
           env: 
             - 
               name: DB_USER
@@ -38,6 +33,7 @@ spec:
                 secretKeyRef: 
                   key: database
                   name: postgres
+          image: us-central1-docker.pkg.dev/customer-n-test-service/conn-repo
           name: approject
         - 
           command: 
