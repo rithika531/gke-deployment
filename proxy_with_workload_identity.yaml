@@ -45,4 +45,4 @@ spec:
           securityContext: 
             runAsNonRoot: true
       restartPolicy: Always
-      serviceAccountName: testapp
+      serviceAccountName: testapp 
