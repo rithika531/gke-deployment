@@ -21,13 +21,13 @@ spec:
               valueFrom:  
                 secretKeyRef: 
                   key: username
-                  name: postgress-credentials
+                  name: cloudsql-db-credentials
             - 
               name: DB_PASS
               valueFrom: 
                 secretKeyRef: 
                   key: password
-                  name: postgress-credentials
+                  name: cloudsql-db-credentials 
             - 
               name: DB_NAME
               valueFrom: 
