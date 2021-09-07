@@ -21,20 +21,20 @@ spec:
               valueFrom:  
                 secretKeyRef: 
                   key: username
-                  name: postgress-credentials
+                  name: cloudsql-db-credentials
             - 
               name: DB_PASS
               valueFrom: 
                 secretKeyRef: 
                   key: password
-                  name: postgress-credentials  
+                  name: cloudsql-db-credentials   
             - 
               name: DB_NAME
               valueFrom: 
                 secretKeyRef: 
                   key: databse
-                  name: postgres-config
-          name: approject
+                  name: postgres
+          name: approjectproxy
         - 
           command: 
             - /cloud_sql_proxy
