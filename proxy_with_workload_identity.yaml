@@ -37,7 +37,7 @@ spec:
             - /cloud_sql_proxy
             - "--dir=/cloudsql"
             - "-instances=customer-n-test-service:us-central1:testinstance=tcp:5432" 
-            - "-credential_file=/secrets/cloudsql/credentials.json"
+            - "-credential_file=postgres-sql-credential.json" 
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources: 
