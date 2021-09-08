@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: test
+  name: testdeployment
 spec: 
   selector: 
     matchLabels: 
@@ -30,7 +30,7 @@ spec:
             - 
               name: DB_NAME
               value: postgres
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/hello-app:v1"
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/test-app:v1"
           name: approject
         - 
           command: 
