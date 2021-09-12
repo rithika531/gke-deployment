@@ -6,11 +6,11 @@ metadata:
 spec: 
   selector: 
     matchLabels: 
-      app: approject
+      app: app-roject
   template: 
     metadata: 
       labels: 
-        app: approject
+        app: app-roject
     spec: 
       containers: 
         - 
@@ -44,4 +44,4 @@ spec:
               memory: 32Mi
           securityContext: 
             runAsNonRoot: true
-      serviceAccountName: testapp
+      serviceAccountName: prodapp
