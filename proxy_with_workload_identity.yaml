@@ -6,11 +6,11 @@ metadata:
 spec: 
   selector: 
     matchLabels: 
-      app: app-roject
+      app: app-project
   template: 
     metadata: 
       labels: 
-        app: app-roject
+        app: app-project
     spec: 
       containers: 
         - 
@@ -30,9 +30,9 @@ spec:
             - 
               name: DB_NAME
               value: postgres
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/test-app:v1"
-          name: approject
-        - 
+          image: "us-central1-docker.pkg.dev/customer-n-prod-service-324106/hello-repo/hello-app:v1" 
+          name: app-project 
+        -  
           command: 
             - /cloud_sql_proxy
             - "-instances=customer-n-prod-service-324106:us-central1:psql-prod-instance=tcp:5432"
