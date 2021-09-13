@@ -32,6 +32,10 @@ spec:
               value: postgres
           image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/test-app:v1"
           name: app-project
+          ports: 
+        - 
+          containerPort: 9376
+          protocol: TCP
         - 
           command: 
             - /cloud_sql_proxy
