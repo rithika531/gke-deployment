@@ -1,17 +1,19 @@
+--- 
 apiVersion: v1
 kind: Service
-metadata:
-  name: ilb-service
-  annotations:
-    networking.gke.io/load-balancer-type: "Internal"
+metadata: 
+  annotations: 
     networking.gke.io/internal-load-balancer-allow-global-access: "true"
-  labels:
-    app: approject
-spec:
+    networking.gke.io/load-balancer-type: Internal
+  labels: 
+    app: app-project
+  name: ilb-service
+spec: 
+  ports: 
+    - 
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector: 
+    app: app-project
   type: LoadBalancer
-  selector:
-    app: approject
-  ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP 
