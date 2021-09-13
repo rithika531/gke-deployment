@@ -1,0 +1,17 @@
+--- 
+apiVersion: v1
+kind: Service
+metadata: 
+  annotations: 
+    cloud.google.com/neg: "{\"ingress\": true}"
+  name: neg-psql-service
+spec: 
+  ports: 
+    - 
+      name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9376
+  selector: 
+    run: app-project
+  type: ClusterIP
