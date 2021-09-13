@@ -1,0 +1,18 @@
+--- 
+apiVersion: v1
+kind: Service
+metadata: 
+  annotations: 
+    cloud.google.com/neg: "{\"ingress\": true}"
+  name: neg-psql-service
+  namespace: default
+spec: 
+  ports: 
+    - 
+      name: host1
+      port: 80
+      protocol: TCP
+      targetPort: 9376
+  selector: 
+    app: app-project
+  type: NodePort
