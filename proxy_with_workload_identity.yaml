@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: test-environment-deployment
+  name: dev-environment-deployment
 spec: 
   selector: 
     matchLabels: 
