@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: dev-environment-deployment
+  name: test-environment-deployment
 spec: 
   selector: 
     matchLabels: 
@@ -30,7 +30,7 @@ spec:
             - 
               name: DB_NAME
               value: postgres
-          image: "us-central1-docker.pkg.dev/customer-n-prod-service-324106/hello-repo/hello-app:v1"
+          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/psql-app:v1"
           name: app-project
           ports: 
             - 
@@ -39,7 +39,7 @@ spec:
         - 
           command: 
             - /cloud_sql_proxy
-            - "-instances=customer-n-prod-service-324106:us-central1:psql-prod-instance=tcp:5432"
+            - "-instances=customer-n-test-service:us-central1:test-psql-instance=tcp:5432"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources: 
@@ -49,4 +49,3 @@ spec:
           securityContext: 
             runAsNonRoot: true
       serviceAccountName: testapp
- 
