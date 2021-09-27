@@ -39,7 +39,7 @@ spec:
         - 
           command: 
             - /cloud_sql_proxy
-            - "-instances=customer-n-test-service:us-central1:test-psql-instance=tcp:5432"
+            - "-instances=customer-n-test-service:us-central1:test-instance=tcp:5432"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources: 
