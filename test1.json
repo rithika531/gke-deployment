@@ -1,6 +1,9 @@
 {
-  "constraint": "constraints/compute.vmExternalIpAccess",
-  "listPolicy": {
-    "allValues": "DENY"
-  }
-}
+    "constraint": "constraints/compute.vmExternalIpAccess",
+    "listPolicy": {
+     "allowedValues": [
+      "allValues": "DENY"
+      "projects/customer-n-test-service/zones/us-central1-a/instances/hello-cluster"
+     ]
+    }
+   }
