@@ -30,7 +30,7 @@ spec:
             - 
               name: DB_NAME
               value: postgres
-          image: "us-central1-docker.pkg.dev/customer-n-test-service/hello-repo/psql-app:v1"
+          image: "gcr.io/customer-n-test-service/simple-web-app@sha256:e710d773afeca33cad228d0a47b08f3bfe22e438e39a2153fbb1ce53dc07d474"
           name: app-project
           ports: 
             - 
