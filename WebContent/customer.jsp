@@ -8,12 +8,15 @@
 </head>
 <body>
 
-	JSP Application for PSQL Connection ... . 
+	<h3>Customer Login</h3>
+	
+	 
 	<form name="f1" method="get" action="success.jsp">
-		Customer ID : <input type="text" name="custid" /> Customer Name : <input
-			type="text" name="custname" /> <input type="submit" value="Submit" />
+		Customer ID : <input type="text" name="custid" /><br/><br/>
+	    Customer Name : <input type="text" name="custname" /><br/><br/>
+	    <input type="submit" value="Submit" />
 
-	</form>
+	</form> 
 
 </body>
 </html> 
