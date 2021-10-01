@@ -11,8 +11,8 @@ RUN yum -y install java
 RUN java -version
 
 WORKDIR /opt/tomcat/webapps
-#ARG WAR_FILE=dist/PSQLConProject.war
-#COPY ${WAR_FILE} PSQLConProject.war
+ARG WAR_FILE=dist/PSQLConProject.war
+COPY ${WAR_FILE} PSQLConProject.war
 
 EXPOSE 8080 
 
