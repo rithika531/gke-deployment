@@ -11,7 +11,7 @@ public class ConnectionProvider{
 	
 	public static Connection getCon() throws IOException {
 		Properties dbProps = new Properties();
-		String path = "/Users/rithika/Desktop/config.properties";
+		String path = "/Users/rithika/eclipse-workspace/tomcatapp/PSQLConProject/src/resources/config.properties";
 		try {
 	        InputStream is = new FileInputStream(path);
 	        dbProps.load(is);
