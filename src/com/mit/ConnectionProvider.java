@@ -1,29 +1,27 @@
 package com.mit;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Properties;
 
 public class ConnectionProvider{
 	
-	static Connection con=null ;
+	static Connection con ;
 	
 	public static Connection getCon() throws IOException {
-		Properties dbProps = new Properties();
-		String path = "/Users/rithika/eclipse-workspace/tomcatapp/PSQLConProject/src/resources/config.properties";
-		try {
-	        InputStream is = new FileInputStream(path);
-	        dbProps.load(is);
-	        
-	        //String url = dbProps.getProperty("connectionURL");
-	        //System.out.println(url); 
-	    } catch (Exception e) {
-	        throw new IOException("Could not read properties file");
-	    }
+		
+		
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("com/mit/config.properties");
+		
+		Properties prop = new Properties();
+		prop.load(input);
+		System.out.println(prop.getProperty("connectionURL")); 
+
 		try {
 			Class.forName("org.postgresql.Driver");
-			con=DriverManager.getConnection(dbProps.getProperty("connectionURL"), dbProps.getProperty("username"), dbProps.getProperty("password"));
+			con=DriverManager.getConnection(prop.getProperty("connectionURL"), prop.getProperty("username"), prop.getProperty("password"));
 		}catch(Exception ex) {
 			System.out.println(ex);
 		}
