@@ -1,4 +1,4 @@
-Tomcat-Container-Deployment
+Tomcat-Container-Deployment (manual deployment steps)
 
 
 Deploying a containerized web application
