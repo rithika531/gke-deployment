@@ -1,0 +1,35 @@
+steps:
+- id: 'build image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'build'
+    - '-t'
+    - 'gcr.io/${Project-ID}/${Container-Registry-Name}:$SHORT_SHA'
+    - '.'
+    - '-f'
+    - 'Dockerfile'
+  timeout: 1000s
+- id: 'push to container registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'push'
+    - 'gcr.io/${Project-ID}/${Container-Registry-Name}:$SHORT_SHA'
+- id: 'deploy to gke'
+  name: 'gcr.io/cloud-builders/gcloud'
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${gke-name}'
+    - 'KUBECONFIG=/.kube/config'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+          
+          gcloud container clusters get-credentials ${gke-name} --zone us-central1-c --project ${Project-ID}
+          sed -i 's|gcr.io/${Project-ID}/${Container-Registry-Name}|gcr.io/${Project-ID}/${Container-Registry-Name}:$SHORT_SHA|' ./deployment.yaml
+          kubectl apply -f ./service-account.yaml
+          kubectl apply -f ./deployment.yaml
+          kubectl apply -f ./create-service.yaml 
+timeout: 1000s
+options:
+  logging: CLOUD_LOGGING_ONLY
