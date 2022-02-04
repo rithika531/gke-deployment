@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/${Project-ID}/${container-registry-name}:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/${Project-ID}/${container-registry-name}:$SHORT_SHA']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta', 'run', 'deploy', '${cloud-run-service-name}', '--image=gcr.io/${Project-ID}/test:$SHORT_SHA', '--add-cloudsql-instances=${psql-instance-connection-name}' , '--vpc-connector=${vpc-connector}', '--vpc-egress=all-traffic' , '--allow-unauthenticated' , '--region=us-central1'] 
+ 
+timeout: 1000s
+options:
+  logging: CLOUD_LOGGING_ONLY
