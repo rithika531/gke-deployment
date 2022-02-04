@@ -31,14 +31,14 @@ spec:
                   name: cloudsql-db-credentials
             - name: DB_NAME
               value: postgres
-          image: "gcr.io/customer-n-test-service/tomcat-app" 
+          image: "gcr.io/${Project-ID}/tomcat-app" 
           name: app-project
           ports:
             - containerPort: 9376
               protocol: TCP
         - command:
             - /cloud_sql_proxy 
-            - "-instances=customer-n-test-service:us-central1:sql-test-trigger=tcp:5432"
+            - "-instances=${PSQL-Instance-Connection-Name}=tcp:5432"
           image: "gcr.io/cloudsql-docker/gce-proxy:latest"
           name: cloud-sql-proxy
           resources:
